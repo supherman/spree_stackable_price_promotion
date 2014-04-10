@@ -22,5 +22,16 @@ describe Spree::Calculator::StackablePriceSack do
         expect(subject.compute(item2)).to eq 200
       end
     end
+
+    context 'zero min amount' do
+      before do
+        subject.preferred_limit_amount = 0
+        subject.preferred_discount_amount = 100
+      end
+
+      it 'returns the preferred discount amount' do
+        expect(subject.compute(item1)).to eq 100
+      end
+    end
   end
 end

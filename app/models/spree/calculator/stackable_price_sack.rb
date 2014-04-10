@@ -18,8 +18,8 @@ module Spree
       else
         base_amount = object.respond_to?(:amount) ? object.amount : BigDecimal(object.to_s)
       end
-
-      (base_amount / (preferred_limit_amount.nonzero? || 1)).to_i * preferred_discount_amount
+      base_amount = preferred_limit_amount.nonzero? ? (base_amount / preferred_limit_amount) : 1
+      base_amount.to_i * preferred_discount_amount
     end
   end
 end
